@@ -1,0 +1,49 @@
+<div class="cart-container" *ngIf="cart">
+    <h2>🛒 Your Cart</h2>
+
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of cart.items">
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.product.price | currency: 'EUR' }}</td>
+                <td>{{ item.totalPrice | currency: 'EUR' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="discount-section">
+        <!-- Show applied discount -->
+        <div *ngIf="hasDiscount && !isChangingCode">
+            ✅ Discount applied:
+            <strong>{{ cart?.discountCode?.code }}</strong>
+            ({{ cart?.discountCode?.type }} - {{ cart?.discountCode?.value }})
+            <button (click)="changeDiscountCode()">Change code</button>
+        </div>
+
+        <!-- Show discount input if no discount or user wants to change -->
+        <div class="discount-form" *ngIf="!hasDiscount || isChangingCode">
+            <input [(ngModel)]="discountCode" placeholder="Enter discount code" />
+            <button (click)="applyDiscount()">Apply</button>
+        </div>
+
+        <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </div>
+
+    <div class="totals">
+        <p>Subtotal: {{ cart.totalBeforeDiscount | currency: 'EUR' }}</p>
+
+        <!-- Show discounted total only when active discount -->
+        <p *ngIf="!isChangingCode && hasDiscount">
+            <strong>Total: {{ cart.totalAfterDiscount | currency: 'EUR' }}</strong>
+        </p>
+    </div>
+</div>
