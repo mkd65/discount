@@ -50,7 +50,6 @@ Ce module représente le **frontend** du projet Discount, développé avec **Ang
 - Angular
 - TypeScript
 - SCSS
-- RxJS
 
 ## ⚙️ Installation
 
@@ -62,6 +61,6 @@ Ce module représente le **frontend** du projet Discount, développé avec **Ang
 ### Démarrage
 
 
-cd discount-front
-npm install
-ng serve
+- cd discount-front
+- npm install
+- ng serve
